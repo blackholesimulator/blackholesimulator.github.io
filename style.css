@@ -192,7 +192,7 @@ header {
     align-items: center;
     border-bottom: 2px solid var(--glow-color);
     padding: 5px 15px;
-    background: linear-gradient(90deg, rgba(0,243,255,0.1) 0%, rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(90deg, rgba(0, 243, 255, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
 }
 
 .logo-img {
@@ -214,8 +214,15 @@ header {
     font-weight: bold;
 }
 
-.control-deck { grid-column: 1; grid-row: 2; }
-.physics-deck { grid-column: 3; grid-row: 2; }
+.control-deck {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.physics-deck {
+    grid-column: 3;
+    grid-row: 2;
+}
 
 .section-title {
     font-size: 0.8rem;
@@ -234,7 +241,7 @@ header {
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     height: 4px;
 }
 
