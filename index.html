@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLACK HOLE LABORATORY // QUANTUM SIMULATOR</title>
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="webgl-container"></div>
+    
+    <div id="immersive-label">1-Minute Black Hole Immersive Experience</div>
+
+    <div id="singularity-overlay">
+        <div class="terminal-card">
+            <h2>SINGULARITY BREACHED</h2>
+            <p>CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>Your coordinate metrics have crossed the inner Event Horizon boundaries. Structural reference frame lost.</p>
+            <button class="restart-btn" id="btn-restart-sequence">RESTART PLUNGE SEQUENCE</button>
+        </div>
+    </div>
+
+    <div id="ui-layer">
+        <header class="interactive">
+            <div class="title-container">
+                <img src="favicon.jpg" alt="Lab Logo" class="logo-img">
+                <div class="title-block">
+                    <h1>BLACK HOLE LABORATORY</h1>
+                    <span>RELATIVISTIC VECTOR SPACE ENGINE</span>
+                </div>
+            </div>
+            <div class="timer-block">
+                SYS.LOC: EVENT_H_SIM // T-MINUS: <span id="plunge-timer" class="timer-text">60.0s</span>
+            </div>
+        </header>
+
+        <div class="control-deck glass-panel interactive">
+            <div class="section-title">1. Singularity Metrics</div>
+            <div class="control-group">
+                <label>Mass (Solar Masses) <span class="val" id="v-mass">6.5M</span></label>
+                <input type="range" id="param-mass" min="1.0" max="10.0" step="0.1" value="6.5">
+            </div>
+            <div class="control-group">
+                <label>Gravitational Lensing <span class="val" id="v-lensing">1.8x</span></label>
+                <input type="range" id="param-lensing" min="0.0" max="3.0" step="0.05" value="1.8">
+            </div>
+
+            <div class="section-title" style="margin-top:10px;">2. Accretion Geometry</div>
+            <div class="control-group">
+                <label>Disk Intensity <span class="val" id="v-disk-int">2.0</span></label>
+                <input type="range" id="param-disk-int" min="0.0" max="4.0" step="0.1" value="2.0">
+            </div>
+            <div class="control-group">
+                <label>Plasma Turbulence <span class="val" id="v-turbulence">0.50</span></label>
+                <input type="range" id="param-turbulence" min="0.0" max="1.0" step="0.05" value="0.50">
+            </div>
+        </div>
+
+        <div class="anomaly-alert">
+            WARNING: GRAVITATIONAL PLUNGE IN PROGRESS<br>
+            STATUS: <span id="trajectory-status">DESCENDING REFERENCE FRAME</span>
+        </div>
+
+        <div class="physics-deck glass-panel interactive">
+            <div class="section-title">3. Particle Kinetics</div>
+            <div class="control-group">
+                <label>Suction Velocity <span class="val" id="v-suction">2.0</span></label>
+                <input type="range" id="param-suction" min="0.5" max="5.0" step="0.1" value="2.0">
+            </div>
+            <div class="control-group">
+                <label>Relativistic Stretch <span class="val" id="v-stretch">3.0</span></label>
+                <input type="range" id="param-stretch" min="0.5" max="6.0" step="0.1" value="3.0">
+            </div>
+
+            <div class="section-title" style="margin-top:10px;">4. Quick Presets</div>
+            <div class="btn-grid">
+                <button id="btn-quantum">Quantum Storm</button>
+                <button id="btn-schwarz">Reset Base</button>
+            </div>
+            <div class="info-footer">
+                Controls dampened during auto-plunge trajectory profile.
+            </div>
+        </div>
+
+        <footer class="interactive">
+            <div style="padding-left:15px;">SYSTEM STATUS: <span style="color:#ff3333; animation: blink 1s infinite;">CRITICAL APPROACH</span></div>
+            <div style="padding-right:15px;">RENDERING METHOD: NATIVE SHADER PASS</div>
+        </footer>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
