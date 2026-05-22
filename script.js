@@ -103,8 +103,7 @@ function init() {
     scene.background = new THREE.Color(0x000000);
 
     camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 3000);
-    resetCameraTrajectory();
-
+    
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -115,6 +114,8 @@ function init() {
     controls.dampingFactor = 0.05;
     controls.minDistance = 2;
     controls.maxDistance = 200;
+
+    resetCameraTrajectory();
 
     buildStars();
     buildBlackHole();
@@ -127,7 +128,8 @@ function init() {
 }
 
 function resetCameraTrajectory() {
-    camera.position.set(0, 35, 110);
+    camera.position.set(0, 35, 115);
+    controls.target.set(0, 0, 0);
     State.plungeElapsedTime = 0.0;
     State.isCompleted = false;
     document.getElementById('singularity-overlay').classList.remove('active');
@@ -361,16 +363,18 @@ function animate() {
 
         let progress = Math.min(1.0, State.plungeElapsedTime / State.maxPlungeDuration);
         let curve = Math.pow(progress, 3.5); 
-
-        let startingZ = 110.0;
-        let endingZ = 12.0; 
-        let currentZ = startingZ - (startingZ - endingZ) * curve;
+        let startingRadius = 120.0;
+        let endingRadius = 12.0; 
+        let currentRadius = startingRadius - (startingRadius - endingRadius) * curve;
         
-        let currentY = 35.0 * (1.0 - curve * 0.95); 
+        let offset = new THREE.Vector3().copy(camera.position).sub(controls.target);
+        let spherical = new THREE.Spherical().setFromVector3(offset);
         
-        camera.position.set(0, currentY, currentZ);
-        controls.target.set(0, 0, 0);
-
+        spherical.radius = currentRadius;
+        
+        offset.setFromSpherical(spherical);
+        camera.position.copy(controls.target).add(offset);
+        
         camera.fov = 65.0 + (curve * 55.0);
         camera.updateProjectionMatrix();
 
