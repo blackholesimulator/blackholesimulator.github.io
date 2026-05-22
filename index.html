@@ -7,22 +7,26 @@
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
     <link rel="stylesheet" href="style.css">
 </head>
-<audio id="audio-bg" loop>
-    <source src="bg-sound.mp3" type="audio/mpeg">
-</audio>
-<audio id="audio-click">
-    <source src="click.mp3" type="audio/mpeg">
-</audio>
 <body>
 
+    <div id="start-overlay">
+        <div class="terminal-card">
+            <h1>BLACK HOLE LABORATORY</h1>
+            <p>SISTEMA PRONTO. AGUARDANDO INICIALIZAÇÃO DO VETOR RELATIVÍSTICO.</p>
+            <button id="btn-start">START IMMERSION</button>
+        </div>
+    </div>
+
+    <audio id="audio-bg" loop><source src="blackhole.mp3" type="audio/mpeg"></audio>
+    <audio id="audio-click"><source src="click.mp3" type="audio/mpeg"></audio>
+
     <div id="webgl-container"></div>
-    
     <div id="immersive-label">1-Minute Black Hole Immersive Experience</div>
 
     <div id="singularity-overlay">
         <div class="terminal-card">
             <h2>SINGULARITY BREACHED</h2>
-            <p>CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>Your coordinate metrics have crossed the inner Event Horizon boundaries. Structural reference frame lost.</p>
+            <p>CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>Your coordinate metrics have crossed the inner Event Horizon boundaries.</p>
             <button class="restart-btn" id="btn-restart-sequence">RESTART PLUNGE SEQUENCE</button>
         </div>
     </div>
@@ -51,7 +55,6 @@
                 <label>Gravitational Lensing <span class="val" id="v-lensing">1.8x</span></label>
                 <input type="range" id="param-lensing" min="0.0" max="3.0" step="0.05" value="1.8">
             </div>
-
             <div class="section-title" style="margin-top:10px;">2. Accretion Geometry</div>
             <div class="control-group">
                 <label>Disk Intensity <span class="val" id="v-disk-int">2.0</span></label>
@@ -78,15 +81,12 @@
                 <label>Relativistic Stretch <span class="val" id="v-stretch">3.0</span></label>
                 <input type="range" id="param-stretch" min="0.5" max="6.0" step="0.1" value="3.0">
             </div>
-
             <div class="section-title" style="margin-top:10px;">4. Quick Presets</div>
             <div class="btn-grid">
                 <button id="btn-quantum">Quantum Storm</button>
                 <button id="btn-schwarz">Reset Base</button>
             </div>
-            <div class="info-footer">
-                Click and drag anywhere to look around the Black Hole!
-            </div>
+            <div class="info-footer">Click and drag anywhere to look around the Black Hole!</div>
         </div>
 
         <footer class="interactive">
