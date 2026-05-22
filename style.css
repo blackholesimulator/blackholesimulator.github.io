@@ -28,6 +28,11 @@ body, html {
     top: 0;
     left: 0;
     z-index: 1;
+    cursor: grab;
+}
+
+#webgl-container:active {
+    cursor: grabbing;
 }
 
 #immersive-label {
@@ -209,9 +214,10 @@ button:hover {
 
 .info-footer {
     font-size: 0.55rem;
-    opacity: 0.5;
+    opacity: 0.8;
     text-align: center;
     margin-top: 15px;
+    color: #00ff66;
 }
 
 .anomaly-alert {
