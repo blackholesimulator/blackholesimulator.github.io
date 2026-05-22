@@ -152,3 +152,6 @@ function animate() {
 }
 
 window.onload = init;
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+});
