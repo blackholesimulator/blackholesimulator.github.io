@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const State = {
+    hasStarted: false,
     mass: 6.5,
     lensing: 1.8,
     diskIntensity: 2.0,
@@ -286,6 +287,13 @@ function buildParticles() {
 }
 
 function setupUIEvents() {
+    document.getElementById('btn-start').addEventListener('click', () => {
+        document.getElementById('start-screen').style.display = 'none';
+        const audio = document.getElementById('bg-audio');
+        audio.play();
+        State.hasStarted = true;
+    });
+
     const handleInput = (id, stateKey, uniformMaterial, uniformKey, suffix = '') => {
         document.getElementById(id).addEventListener('input', (e) => {
             if (State.isCompleted) return;
@@ -356,7 +364,7 @@ function animate() {
     diskMesh.uniforms.uTime.value = delta;
     particleSystem.material.uniforms.uTime.value = delta;
 
-    if (!State.isCompleted) {
+    if (State.hasStarted && !State.isCompleted) {
         State.plungeElapsedTime += dt;
         let timeLeft = Math.max(0.0, State.maxPlungeDuration - State.plungeElapsedTime);
         document.getElementById('plunge-timer').innerText = timeLeft.toFixed(1) + 's';
