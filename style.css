@@ -416,6 +416,27 @@ button:hover {
     text-transform: uppercase;
 }
 
+.blackhole-info {
+    margin-top: 18px;
+    border-top: 1px solid rgba(0, 243, 255, 0.2);
+    padding-top: 14px;
+}
+
+.blackhole-info h3 {
+    font-size: 0.75rem;
+    color: #00f3ff;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.blackhole-info p {
+    font-size: 0.58rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.78);
+    text-transform: uppercase;
+}
+
 .anomaly-alert {
     grid-column: 2;
     grid-row: 2;
