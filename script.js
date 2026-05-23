@@ -33,7 +33,7 @@ function init() {
     scene.background = new THREE.Color(0x000000);
     camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 3000);
     renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
     controls = new OrbitControls(camera, renderer.domElement);
@@ -42,7 +42,9 @@ function init() {
     buildBlackHole();
     buildParticles();
     
-    renderer.render(scene, camera);
+    setTimeout(() => {
+        renderer.render(scene, camera);
+    }, 100);
     
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -53,7 +55,6 @@ function init() {
     const startBtn = document.getElementById('btn-start');
     const startOverlay = document.getElementById('start-overlay');
     const bgAudio = document.getElementById('audio-bg');
-    const clickAudio = document.getElementById('audio-click');
 
     startBtn.addEventListener('click', () => {
         bgAudio.volume = 0.3;
@@ -61,13 +62,6 @@ function init() {
         startOverlay.style.opacity = '0';
         setTimeout(() => startOverlay.style.display = 'none', 1000);
         animate();
-    });
-
-    document.addEventListener('click', (e) => {
-        if(e.target.tagName === 'BUTTON' && e.target.id !== 'btn-start') {
-            clickAudio.currentTime = 0;
-            clickAudio.play();
-        }
     });
 
     setupUIEvents();
@@ -108,7 +102,7 @@ function buildParticles() {
     geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geo.setAttribute('aMetrics', new THREE.BufferAttribute(metrics, 3));
     
-    particleSystem = new THREE.Points(geo, new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0.0 }, uSuction: { value: State.suction }, uStretch: { value: State.stretch }, uMass: { value: State.mass } }, vertexShader: `uniform float uTime; uniform float uSuction; uniform float uStretch; uniform float uMass; attribute vec3 aMetrics; varying float vStretch; void main() { vec3 pos = position; float r = aMetrics.x; float speed = aMetrics.z; float angle = aMetrics.y - (uTime * speed * 0.8); float dr = r - mod(uTime * uSuction * 0.5, r - (uMass * 0.4)); if(dr < (uMass * 0.4)) dr = 30.0; pos.x = dr * cos(angle); pos.z = dr * sin(angle); vStretch = (1.0 / (dr - (uMass * 0.3))) * uStretch; vec4 mv = modelViewMatrix * vec4(pos, 1.0); gl_PointSize = (2.5 * (300.0 / -mv.z)) * clamp(vStretch * 0.4, 1.0, 5.0); gl_Position = projectionMatrix * mv; }`, fragmentShader: `varying float vStretch; void main() { vec2 c = gl_Point aCoord - vec2(0.5); if(length(c) > 0.5) discard; gl_FragColor = vec4(mix(vec3(1.0,0.35,0.0), vec3(1.0,0.95,0.8), vStretch*0.2), 0.75); }`, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    particleSystem = new THREE.Points(geo, new THREE.ShaderMaterial({ uniforms: { uTime: { value: 0.0 }, uSuction: { value: State.suction }, uStretch: { value: State.stretch }, uMass: { value: State.mass } }, vertexShader: `uniform float uTime; uniform float uSuction; uniform float uStretch; uniform float uMass; attribute vec3 aMetrics; varying float vStretch; void main() { vec3 pos = position; float r = aMetrics.x; float speed = aMetrics.z; float angle = aMetrics.y - (uTime * speed * 0.8); float dr = r - mod(uTime * uSuction * 0.5, r - (uMass * 0.4)); if(dr < (uMass * 0.4)) dr = 30.0; pos.x = dr * cos(angle); pos.z = dr * sin(angle); vStretch = (1.0 / (dr - (uMass * 0.3))) * uStretch; vec4 mv = modelViewMatrix * vec4(pos, 1.0); gl_PointSize = (2.5 * (300.0 / -mv.z)) * clamp(vStretch * 0.4, 1.0, 5.0); gl_Position = projectionMatrix * mv; }`, fragmentShader: `varying float vStretch; void main() { vec2 c = gl_PointCoord - vec2(0.5); if(length(c) > 0.5) discard; gl_FragColor = vec4(mix(vec3(1.0,0.35,0.0), vec3(1.0,0.95,0.8), vStretch*0.2), 0.75); }`, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
     scene.add(particleSystem);
 }
 
@@ -127,31 +121,21 @@ function animate() {
     requestAnimationFrame(animate);
     let dt = clock.getDelta();
     let delta = clock.getElapsedTime();
-    
     lensingMesh.uniforms.uTime.value = delta;
     diskMesh.uniforms.uTime.value = delta;
     particleSystem.material.uniforms.uTime.value = delta;
-    
     if (!State.isCompleted) {
         State.plungeElapsedTime += dt;
         let progress = Math.min(1.0, State.plungeElapsedTime / State.maxPlungeDuration);
         document.getElementById('plunge-timer').innerText = (State.maxPlungeDuration - State.plungeElapsedTime).toFixed(1) + 's';
-        
         let targetRadius = 120.0 - (108.0 * Math.pow(progress, 3));
         let spherical = new THREE.Spherical().setFromVector3(camera.position);
         spherical.radius = targetRadius;
         camera.position.setFromSpherical(spherical);
-        
-        if (progress >= 1.0) { 
-            State.isCompleted = true; 
-            document.getElementById('singularity-overlay').classList.add('active'); 
-        }
+        if (progress >= 1.0) { State.isCompleted = true; document.getElementById('singularity-overlay').classList.add('active'); }
     }
     controls.update();
     renderer.render(scene, camera);
 }
 
-window.onload = init;
-document.addEventListener('DOMContentLoaded', () => {
-    init();
-});
+document.addEventListener('DOMContentLoaded', init);
