@@ -10,10 +10,22 @@
 <body>
 
     <div id="start-screen">
+
+        <div class="start-brand">
+            <img src="favicon.jpg" alt="Black Hole Logo" class="start-logo">
+            <div class="start-brand-text">
+                <h1>BLACK HOLE SIMULATOR</h1>
+                <span>RELATIVISTIC IMMERSION SYSTEM</span>
+            </div>
+        </div>
+
         <button id="btn-start">
             <span class="btn-title">START IMMERSIVE EXPERIENCE</span>
-            <p>This is a 1-minute immersive experience of what would be reaching the event horizon boundaries</p>
+            <p class="btn-subtitle">
+                This is a 1-minute immersive experience of crossing the event horizon boundaries
+            </p>
         </button>
+
     </div>
 
     <audio id="bg-audio" src="blackhole.mp3" loop></audio>
@@ -25,8 +37,14 @@
     <div id="singularity-overlay">
         <div class="terminal-card">
             <h2>SINGULARITY BREACHED</h2>
-            <p>CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>Your coordinate metrics have crossed the inner Event Horizon boundaries. Structural reference frame lost.</p>
-            <button class="restart-btn" id="btn-restart-sequence">RESTART PLUNGE SEQUENCE</button>
+            <p>
+                CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>
+                Your coordinate metrics have crossed the inner Event Horizon boundaries.
+                Structural reference frame lost.
+            </p>
+            <button class="restart-btn" id="btn-restart-sequence">
+                RESTART PLUNGE SEQUENCE
+            </button>
         </div>
     </div>
 
@@ -39,62 +57,105 @@
                     <span>RELATIVISTIC VECTOR SPACE ENGINE</span>
                 </div>
             </div>
+
             <div class="timer-block">
-                SYS.LOC: EVENT_H_SIM // T-MINUS: <span id="plunge-timer" class="timer-text">60.0s</span>
+                SYS.LOC: EVENT_H_SIM // T-MINUS:
+                <span id="plunge-timer" class="timer-text">60.0s</span>
             </div>
         </header>
 
         <div class="control-deck glass-panel interactive">
             <div class="section-title">1. Singularity Metrics</div>
+
             <div class="control-group">
-                <label>Mass (Solar Masses) <span class="val" id="v-mass">6.5M</span></label>
+                <label>
+                    Mass (Solar Masses)
+                    <span class="val" id="v-mass">6.5M</span>
+                </label>
                 <input type="range" id="param-mass" min="1.0" max="10.0" step="0.1" value="6.5">
             </div>
+
             <div class="control-group">
-                <label>Gravitational Lensing <span class="val" id="v-lensing">1.8x</span></label>
+                <label>
+                    Gravitational Lensing
+                    <span class="val" id="v-lensing">1.8x</span>
+                </label>
                 <input type="range" id="param-lensing" min="0.0" max="3.0" step="0.05" value="1.8">
             </div>
 
-            <div class="section-title" style="margin-top:10px;">2. Accretion Geometry</div>
+            <div class="section-title" style="margin-top:10px;">
+                2. Accretion Geometry
+            </div>
+
             <div class="control-group">
-                <label>Disk Intensity <span class="val" id="v-disk-int">2.0</span></label>
+                <label>
+                    Disk Intensity
+                    <span class="val" id="v-disk-int">2.0</span>
+                </label>
                 <input type="range" id="param-disk-int" min="0.0" max="4.0" step="0.1" value="2.0">
             </div>
+
             <div class="control-group">
-                <label>Plasma Turbulence <span class="val" id="v-turbulence">0.50</span></label>
+                <label>
+                    Plasma Turbulence
+                    <span class="val" id="v-turbulence">0.50</span>
+                </label>
                 <input type="range" id="param-turbulence" min="0.0" max="1.0" step="0.05" value="0.50">
             </div>
         </div>
 
         <div class="anomaly-alert">
             WARNING: GRAVITATIONAL PLUNGE IN PROGRESS<br>
-            STATUS: <span id="trajectory-status">DESCENDING REFERENCE FRAME</span>
+            STATUS:
+            <span id="trajectory-status">
+                DESCENDING REFERENCE FRAME
+            </span>
         </div>
 
         <div class="physics-deck glass-panel interactive">
             <div class="section-title">3. Particle Kinetics</div>
+
             <div class="control-group">
-                <label>Suction Velocity <span class="val" id="v-suction">2.0</span></label>
+                <label>
+                    Suction Velocity
+                    <span class="val" id="v-suction">2.0</span>
+                </label>
                 <input type="range" id="param-suction" min="0.5" max="5.0" step="0.1" value="2.0">
             </div>
+
             <div class="control-group">
-                <label>Relativistic Stretch <span class="val" id="v-stretch">3.0</span></label>
+                <label>
+                    Relativistic Stretch
+                    <span class="val" id="v-stretch">3.0</span>
+                </label>
                 <input type="range" id="param-stretch" min="0.5" max="6.0" step="0.1" value="3.0">
             </div>
 
-            <div class="section-title" style="margin-top:10px;">4. Quick Presets</div>
+            <div class="section-title" style="margin-top:10px;">
+                4. Quick Presets
+            </div>
+
             <div class="btn-grid">
                 <button id="btn-quantum">Quantum Storm</button>
                 <button id="btn-schwarz">Reset Base</button>
             </div>
+
             <div class="info-footer">
-                Click and drag anywhere to look around the Black Hole!
+                Click and drag anywhere to look around the black hole
             </div>
         </div>
 
         <footer class="interactive">
-            <div style="padding-left:15px;">SYSTEM STATUS: <span style="color:#ff3333; animation: blink 1s infinite;">CRITICAL APPROACH</span></div>
-            <div style="padding-right:15px;">RENDERING METHOD: NATIVE SHADER PASS</div>
+            <div style="padding-left:15px;">
+                SYSTEM STATUS:
+                <span style="color:#ff3333; animation: blink 1s infinite;">
+                    CRITICAL APPROACH
+                </span>
+            </div>
+
+            <div style="padding-right:15px;">
+                RENDERING METHOD: NATIVE SHADER PASS
+            </div>
         </footer>
     </div>
 
@@ -106,6 +167,8 @@
             }
         }
     </script>
+
     <script type="module" src="script.js"></script>
+
 </body>
 </html>
