@@ -16,6 +16,7 @@ const State = {
 
 let scene, camera, renderer, controls;
 let lensingMesh, diskMesh, particleSystem;
+
 let clock = new THREE.Clock();
 
 const LensingShader = {
@@ -26,11 +27,15 @@ const LensingShader = {
         void main() {
             vUv = uv;
 
-            vec4 worldPos = modelMatrix * vec4(position, 1.0);
+            vec4 worldPos =
+                modelMatrix * vec4(position, 1.0);
 
             vWorldPosition = worldPos.xyz;
 
-            gl_Position = projectionMatrix * viewMatrix * worldPos;
+            gl_Position =
+                projectionMatrix *
+                viewMatrix *
+                worldPos;
         }
     `,
     fragmentShader: `
@@ -43,18 +48,29 @@ const LensingShader = {
         varying vec3 vWorldPosition;
 
         void main() {
-            vec3 viewDir = normalize(vWorldPosition - cameraPosition);
-            vec3 relPos = vWorldPosition - vec3(0.0);
+            vec3 relPos =
+                vWorldPosition - vec3(0.0);
 
-            float distanceToCenter = length(relPos);
-            float eventHorizonRadius = uMass * 1.4;
+            float distanceToCenter =
+                length(relPos);
+
+            float eventHorizonRadius =
+                uMass * 1.4;
 
             if (distanceToCenter <= eventHorizonRadius) {
                 discard;
             }
 
-            float deflection = (uLensingStrength * uMass) / (distanceToCenter - eventHorizonRadius);
-            float edgeGlow = pow(eventHorizonRadius / distanceToCenter, 4.5);
+            float deflection =
+                (uLensingStrength * uMass) /
+                (distanceToCenter - eventHorizonRadius);
+
+            float edgeGlow =
+                pow(
+                    eventHorizonRadius /
+                    distanceToCenter,
+                    4.5
+                );
 
             vec3 horizonGlow =
                 vec3(0.0, 0.75, 1.0) *
@@ -64,7 +80,11 @@ const LensingShader = {
             gl_FragColor =
                 vec4(
                     horizonGlow,
-                    clamp(edgeGlow + (deflection * 0.12), 0.0, 1.0)
+                    clamp(
+                        edgeGlow + (deflection * 0.12),
+                        0.0,
+                        1.0
+                    )
                 );
         }
     `
@@ -100,25 +120,42 @@ const DiskShader = {
 
         void main() {
             float r = length(vLocalPosition.xz);
-            float angle = atan(vLocalPosition.z, vLocalPosition.x);
 
-            float speed = 2.5 / (r + 0.1);
-            float dynamicAngle = angle - (uTime * speed);
+            float angle =
+                atan(
+                    vLocalPosition.z,
+                    vLocalPosition.x
+                );
 
-            float n = noise(
-                vec2(
-                    r * 2.0,
-                    dynamicAngle * (1.0 + uTurbulence)
-                )
-            );
+            float speed =
+                2.5 / (r + 0.1);
 
-            float innerEdge = smoothstep(8.0, 11.0, r);
-            float outerEdge = smoothstep(30.0, 12.0, r);
+            float dynamicAngle =
+                angle - (uTime * speed);
 
-            float envelope = innerEdge * outerEdge;
+            float n =
+                noise(
+                    vec2(
+                        r * 2.0,
+                        dynamicAngle *
+                        (1.0 + uTurbulence)
+                    )
+                );
 
-            vec3 hotColor = vec3(1.0, 0.95, 0.8);
-            vec3 coolColor = vec3(1.0, 0.28, 0.0);
+            float innerEdge =
+                smoothstep(8.0, 11.0, r);
+
+            float outerEdge =
+                smoothstep(30.0, 12.0, r);
+
+            float envelope =
+                innerEdge * outerEdge;
+
+            vec3 hotColor =
+                vec3(1.0, 0.95, 0.8);
+
+            vec3 coolColor =
+                vec3(1.0, 0.28, 0.0);
 
             vec3 diskColor =
                 mix(
@@ -129,7 +166,9 @@ const DiskShader = {
 
             gl_FragColor =
                 vec4(
-                    diskColor * (n * 1.6 + 0.4) * uIntensity,
+                    diskColor *
+                    (n * 1.6 + 0.4) *
+                    uIntensity,
                     envelope
                 );
         }
@@ -137,10 +176,13 @@ const DiskShader = {
 };
 
 function init() {
-    const container = document.getElementById('webgl-container');
+    const container =
+        document.getElementById('webgl-container');
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+
+    scene.background =
+        new THREE.Color(0x000000);
 
     camera = new THREE.PerspectiveCamera(
         65,
@@ -153,7 +195,10 @@ function init() {
         antialias: true
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
 
     renderer.setPixelRatio(
         Math.min(window.devicePixelRatio, 2)
@@ -177,9 +222,12 @@ function init() {
     buildBlackHole();
     buildParticles();
 
-    window.addEventListener('resize', onWindowResize);
-
     setupUIEvents();
+
+    window.addEventListener(
+        'resize',
+        onWindowResize
+    );
 
     animate();
 }
@@ -196,11 +244,14 @@ function resetCameraTrajectory() {
         .getElementById('singularity-overlay')
         .classList.remove('active');
 
-    document.getElementById('trajectory-status').innerText =
+    document
+        .getElementById('trajectory-status')
+        .innerText =
         'DESCENDING REFERENCE FRAME';
 
-    document.getElementById('trajectory-status').style.color =
-        '#00ff66';
+    document
+        .getElementById('trajectory-status')
+        .style.color = '#00ff66';
 }
 
 function buildStars() {
@@ -208,22 +259,35 @@ function buildStars() {
 
     const geo = new THREE.BufferGeometry();
 
-    const positions = new Float32Array(starCount * 3);
-    const colors = new Float32Array(starCount * 3);
+    const positions =
+        new Float32Array(starCount * 3);
+
+    const colors =
+        new Float32Array(starCount * 3);
 
     for (let i = 0; i < starCount * 3; i += 3) {
-        let radius = 400 + Math.random() * 800;
-        let theta = Math.random() * Math.PI * 2;
-        let phi = Math.acos((Math.random() * 2) - 1);
+        let radius =
+            400 + Math.random() * 800;
+
+        let theta =
+            Math.random() * Math.PI * 2;
+
+        let phi =
+            Math.acos((Math.random() * 2) - 1);
 
         positions[i] =
-            radius * Math.sin(phi) * Math.cos(theta);
+            radius *
+            Math.sin(phi) *
+            Math.cos(theta);
 
         positions[i + 1] =
-            radius * Math.sin(phi) * Math.sin(theta);
+            radius *
+            Math.sin(phi) *
+            Math.sin(theta);
 
         positions[i + 2] =
-            radius * Math.cos(phi);
+            radius *
+            Math.cos(phi);
 
         let randType = Math.random();
 
@@ -244,12 +308,18 @@ function buildStars() {
 
     geo.setAttribute(
         'position',
-        new THREE.BufferAttribute(positions, 3)
+        new THREE.BufferAttribute(
+            positions,
+            3
+        )
     );
 
     geo.setAttribute(
         'color',
-        new THREE.BufferAttribute(colors, 3)
+        new THREE.BufferAttribute(
+            colors,
+            3
+        )
     );
 
     const mat = new THREE.PointsMaterial({
@@ -260,33 +330,39 @@ function buildStars() {
         sizeAttenuation: true
     });
 
-    scene.add(new THREE.Points(geo, mat));
+    scene.add(
+        new THREE.Points(geo, mat)
+    );
 }
 
 function buildBlackHole() {
-    const lensingGeo = new THREE.SphereGeometry(
-        20.0,
-        64,
-        64
-    );
+    const lensingGeo =
+        new THREE.SphereGeometry(
+            20,
+            64,
+            64
+        );
 
-    lensingMesh = new THREE.ShaderMaterial({
-        uniforms: {
-            uMass: {
-                value: State.mass
+    lensingMesh =
+        new THREE.ShaderMaterial({
+            uniforms: {
+                uMass: {
+                    value: State.mass
+                },
+                uLensingStrength: {
+                    value: State.lensing
+                },
+                uTime: {
+                    value: 0
+                }
             },
-            uLensingStrength: {
-                value: State.lensing
-            },
-            uTime: {
-                value: 0.0
-            }
-        },
-        vertexShader: LensingShader.vertexShader,
-        fragmentShader: LensingShader.fragmentShader,
-        transparent: true,
-        side: THREE.DoubleSide
-    });
+            vertexShader:
+                LensingShader.vertexShader,
+            fragmentShader:
+                LensingShader.fragmentShader,
+            transparent: true,
+            side: THREE.DoubleSide
+        });
 
     scene.add(
         new THREE.Mesh(
@@ -295,29 +371,34 @@ function buildBlackHole() {
         )
     );
 
-    const diskGeo = new THREE.PlaneGeometry(60, 60);
+    const diskGeo =
+        new THREE.PlaneGeometry(60, 60);
 
     diskGeo.rotateX(-Math.PI / 2);
 
-    diskMesh = new THREE.ShaderMaterial({
-        uniforms: {
-            uTime: {
-                value: 0.0
+    diskMesh =
+        new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: {
+                    value: 0
+                },
+                uIntensity: {
+                    value: State.diskIntensity
+                },
+                uTurbulence: {
+                    value: State.turbulence
+                }
             },
-            uIntensity: {
-                value: State.diskIntensity
-            },
-            uTurbulence: {
-                value: State.turbulence
-            }
-        },
-        vertexShader: DiskShader.vertexShader,
-        fragmentShader: DiskShader.fragmentShader,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide,
-        depthWrite: false
-    });
+            vertexShader:
+                DiskShader.vertexShader,
+            fragmentShader:
+                DiskShader.fragmentShader,
+            transparent: true,
+            blending:
+                THREE.AdditiveBlending,
+            side: THREE.DoubleSide,
+            depthWrite: false
+        });
 
     scene.add(
         new THREE.Mesh(
@@ -332,12 +413,18 @@ function buildParticles() {
 
     const geo = new THREE.BufferGeometry();
 
-    const positions = new Float32Array(count * 3);
-    const metrics = new Float32Array(count * 3);
+    const positions =
+        new Float32Array(count * 3);
+
+    const metrics =
+        new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-        let r = 8.0 + Math.random() * 25.0;
-        let theta = Math.random() * Math.PI * 2;
+        let r =
+            8 + Math.random() * 25;
+
+        let theta =
+            Math.random() * Math.PI * 2;
 
         positions[i * 3] =
             r * Math.cos(theta);
@@ -351,125 +438,138 @@ function buildParticles() {
         metrics[i * 3] = r;
         metrics[i * 3 + 1] = theta;
         metrics[i * 3 + 2] =
-            Math.sqrt(1.0 / r) * 2.2;
+            Math.sqrt(1 / r) * 2.2;
     }
 
     geo.setAttribute(
         'position',
-        new THREE.BufferAttribute(positions, 3)
+        new THREE.BufferAttribute(
+            positions,
+            3
+        )
     );
 
     geo.setAttribute(
         'aMetrics',
-        new THREE.BufferAttribute(metrics, 3)
+        new THREE.BufferAttribute(
+            metrics,
+            3
+        )
     );
 
-    particleSystem = new THREE.Points(
-        geo,
-        new THREE.ShaderMaterial({
-            uniforms: {
-                uTime: {
-                    value: 0.0
-                },
-                uSuction: {
-                    value: State.suction
-                },
-                uStretch: {
-                    value: State.stretch
-                },
-                uMass: {
-                    value: State.mass
-                }
-            },
-            vertexShader: `
-                uniform float uTime;
-                uniform float uSuction;
-                uniform float uStretch;
-                uniform float uMass;
-
-                attribute vec3 aMetrics;
-
-                varying float vStretch;
-
-                void main() {
-                    vec3 pos = position;
-
-                    float radius = aMetrics.x;
-                    float initialAngle = aMetrics.y;
-                    float speed = aMetrics.z;
-
-                    float currentAngle =
-                        initialAngle -
-                        (uTime * speed * 0.8);
-
-                    float dynamicRadius =
-                        radius -
-                        mod(
-                            uTime * uSuction * 0.5,
-                            radius - (uMass * 0.4)
-                        );
-
-                    if(dynamicRadius < (uMass * 0.4)) {
-                        dynamicRadius = 30.0;
+    particleSystem =
+        new THREE.Points(
+            geo,
+            new THREE.ShaderMaterial({
+                uniforms: {
+                    uTime: {
+                        value: 0
+                    },
+                    uSuction: {
+                        value: State.suction
+                    },
+                    uStretch: {
+                        value: State.stretch
+                    },
+                    uMass: {
+                        value: State.mass
                     }
+                },
+                vertexShader: `
+                    uniform float uTime;
+                    uniform float uSuction;
+                    uniform float uStretch;
+                    uniform float uMass;
 
-                    pos.x =
-                        dynamicRadius * cos(currentAngle);
+                    attribute vec3 aMetrics;
 
-                    pos.z =
-                        dynamicRadius * sin(currentAngle);
+                    varying float vStretch;
 
-                    vStretch =
-                        (1.0 / (dynamicRadius - (uMass * 0.3))) *
-                        uStretch;
+                    void main() {
+                        vec3 pos = position;
 
-                    vec4 mvPosition =
-                        modelViewMatrix *
-                        vec4(pos, 1.0);
+                        float radius = aMetrics.x;
+                        float initialAngle = aMetrics.y;
+                        float speed = aMetrics.z;
 
-                    gl_PointSize =
-                        (2.5 * (300.0 / -mvPosition.z)) *
-                        clamp(vStretch * 0.4, 1.0, 5.0);
+                        float currentAngle =
+                            initialAngle -
+                            (uTime * speed * 0.8);
 
-                    gl_Position =
-                        projectionMatrix *
-                        mvPosition;
-                }
-            `,
-            fragmentShader: `
-                varying float vStretch;
+                        float dynamicRadius =
+                            radius -
+                            mod(
+                                uTime * uSuction * 0.5,
+                                radius - (uMass * 0.4)
+                            );
 
-                void main() {
-                    vec2 c =
-                        gl_PointCoord - vec2(0.5);
+                        if(dynamicRadius < (uMass * 0.4)) {
+                            dynamicRadius = 30.0;
+                        }
 
-                    if(length(c) > 0.5) {
-                        discard;
+                        pos.x =
+                            dynamicRadius *
+                            cos(currentAngle);
+
+                        pos.z =
+                            dynamicRadius *
+                            sin(currentAngle);
+
+                        vStretch =
+                            (1.0 /
+                            (dynamicRadius - (uMass * 0.3))) *
+                            uStretch;
+
+                        vec4 mvPosition =
+                            modelViewMatrix *
+                            vec4(pos, 1.0);
+
+                        gl_PointSize =
+                            (2.5 *
+                            (300.0 / -mvPosition.z)) *
+                            clamp(vStretch * 0.4, 1.0, 5.0);
+
+                        gl_Position =
+                            projectionMatrix *
+                            mvPosition;
                     }
+                `,
+                fragmentShader: `
+                    varying float vStretch;
 
-                    vec3 col =
-                        mix(
-                            vec3(1.0, 0.35, 0.0),
-                            vec3(1.0, 0.95, 0.8),
-                            vStretch * 0.2
-                        );
+                    void main() {
+                        vec2 c =
+                            gl_PointCoord -
+                            vec2(0.5);
 
-                    gl_FragColor =
-                        vec4(
-                            col,
-                            smoothstep(
-                                0.5,
-                                0.1,
-                                length(c)
-                            ) * 0.75
-                        );
-                }
-            `,
-            transparent: true,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        })
-    );
+                        if(length(c) > 0.5) {
+                            discard;
+                        }
+
+                        vec3 col =
+                            mix(
+                                vec3(1.0, 0.35, 0.0),
+                                vec3(1.0, 0.95, 0.8),
+                                vStretch * 0.2
+                            );
+
+                        gl_FragColor =
+                            vec4(
+                                col,
+                                smoothstep(
+                                    0.5,
+                                    0.1,
+                                    length(c)
+                                ) * 0.75
+                            );
+                    }
+                `,
+                transparent: true,
+                blending:
+                    THREE.AdditiveBlending,
+                depthWrite: false
+            })
+        );
 
     scene.add(particleSystem);
 }
@@ -483,12 +583,37 @@ function setupUIEvents() {
             ).style.display = 'none';
 
             const audio =
-                document.getElementById('bg-audio');
+                document.getElementById(
+                    'bg-audio'
+                );
 
             audio.play();
 
             State.hasStarted = true;
         });
+
+    const aboutScreen =
+        document.getElementById(
+            'about-screen'
+        );
+
+    const btnAbout =
+        document.getElementById(
+            'btn-about'
+        );
+
+    const btnBack =
+        document.getElementById(
+            'btn-back'
+        );
+
+    btnAbout.addEventListener('click', () => {
+        aboutScreen.classList.add('active');
+    });
+
+    btnBack.addEventListener('click', () => {
+        aboutScreen.classList.remove('active');
+    });
 
     const handleInput = (
         id,
@@ -514,7 +639,9 @@ function setupUIEvents() {
 
                 if (
                     uniformMaterial &&
-                    uniformMaterial.uniforms[uniformKey]
+                    uniformMaterial.uniforms[
+                        uniformKey
+                    ]
                 ) {
                     uniformMaterial.uniforms[
                         uniformKey
@@ -609,7 +736,9 @@ function setupUIEvents() {
         });
 
     document
-        .getElementById('btn-restart-sequence')
+        .getElementById(
+            'btn-restart-sequence'
+        )
         .addEventListener('click', () => {
             resetCameraTrajectory();
         });
@@ -624,11 +753,14 @@ function setPreset(
     str
 ) {
     const updateField = (id, val) => {
-        const el = document.getElementById(id);
+        const el =
+            document.getElementById(id);
 
         el.value = val;
 
-        el.dispatchEvent(new Event('input'));
+        el.dispatchEvent(
+            new Event('input')
+        );
     };
 
     updateField('param-mass', mass);
@@ -641,7 +773,8 @@ function setPreset(
 
 function onWindowResize() {
     camera.aspect =
-        window.innerWidth / window.innerHeight;
+        window.innerWidth /
+        window.innerHeight;
 
     camera.updateProjectionMatrix();
 
@@ -655,18 +788,28 @@ function animate() {
     requestAnimationFrame(animate);
 
     const dt = clock.getDelta();
-    const delta = clock.getElapsedTime();
 
-    lensingMesh.uniforms.uTime.value = delta;
-    diskMesh.uniforms.uTime.value = delta;
-    particleSystem.material.uniforms.uTime.value = delta;
+    const delta =
+        clock.getElapsedTime();
 
-    if (State.hasStarted && !State.isCompleted) {
+    lensingMesh.uniforms.uTime.value =
+        delta;
+
+    diskMesh.uniforms.uTime.value =
+        delta;
+
+    particleSystem.material.uniforms.uTime.value =
+        delta;
+
+    if (
+        State.hasStarted &&
+        !State.isCompleted
+    ) {
         State.plungeElapsedTime += dt;
 
         let timeLeft =
             Math.max(
-                0.0,
+                0,
                 State.maxPlungeDuration -
                 State.plungeElapsedTime
             );
@@ -678,19 +821,21 @@ function animate() {
 
         let progress =
             Math.min(
-                1.0,
+                1,
                 State.plungeElapsedTime /
                 State.maxPlungeDuration
             );
 
-        let curve = Math.pow(progress, 3.5);
+        let curve =
+            Math.pow(progress, 3.5);
 
-        let startingRadius = 120.0;
-        let endingRadius = 12.0;
+        let startingRadius = 120;
+        let endingRadius = 12;
 
         let currentRadius =
             startingRadius -
-            (startingRadius - endingRadius) * curve;
+            (startingRadius - endingRadius) *
+            curve;
 
         let offset =
             new THREE.Vector3()
@@ -701,16 +846,19 @@ function animate() {
             new THREE.Spherical()
                 .setFromVector3(offset);
 
-        spherical.radius = currentRadius;
+        spherical.radius =
+            currentRadius;
 
-        offset.setFromSpherical(spherical);
+        offset.setFromSpherical(
+            spherical
+        );
 
         camera.position
             .copy(controls.target)
             .add(offset);
 
         camera.fov =
-            65.0 + (curve * 55.0);
+            65 + (curve * 55);
 
         camera.updateProjectionMatrix();
 
@@ -722,14 +870,17 @@ function animate() {
 
             document.getElementById(
                 'trajectory-status'
-            ).style.color = '#ff3333';
+            ).style.color =
+                '#ff3333';
         }
 
-        if (progress >= 1.0) {
+        if (progress >= 1) {
             State.isCompleted = true;
 
             document
-                .getElementById('singularity-overlay')
+                .getElementById(
+                    'singularity-overlay'
+                )
                 .classList.add('active');
         }
     }
