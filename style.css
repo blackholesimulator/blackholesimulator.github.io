@@ -21,6 +21,38 @@ body, html {
     color: var(--text-main);
 }
 
+#start-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn-start {
+    background: rgba(0, 243, 255, 0.1);
+    border: 2px solid var(--glow-color);
+    color: var(--glow-color);
+    font-size: 1.5rem;
+    padding: 20px 50px;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--glow-color);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+#btn-start:hover {
+    background: var(--glow-color);
+    color: #000;
+    box-shadow: 0 0 40px var(--glow-color);
+}
+
 #webgl-container {
     width: 100%;
     height: 100%;
