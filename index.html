@@ -24,6 +24,7 @@
 
         <button id="btn-start">
             <span class="btn-title">START IMMERSIVE EXPERIENCE</span>
+
             <p class="btn-subtitle">
                 This is a 1-minute immersive experience of crossing the event horizon boundaries
             </p>
@@ -31,20 +32,39 @@
 
     </div>
 
+    <div id="about-screen">
+
+        <button id="btn-back">
+            ← BACK TO SIMULATOR
+        </button>
+
+        <div class="about-content">
+            <h1>About</h1>
+            <p>Hello, we are Black hole simulator. Our goal is to simulate something everyone is curious about: What is it like to</p>
+            <p>fall into a black hole? That’s why we’ve developed this realistic simulation where you can adjust various parameters</p>
+            <p>of the black hole, such as its mass. If you have any questions, please contact us by email: j88055616@gmail.com</p>
+        </div>
+
+    </div>
+
     <audio id="bg-audio" src="blackhole.mp3" loop></audio>
 
     <div id="webgl-container"></div>
     
-    <div id="immersive-label">1-Minute Black Hole Immersive Experience</div>
+    <div id="immersive-label">
+        1-Minute Black Hole Immersive Experience
+    </div>
 
     <div id="singularity-overlay">
         <div class="terminal-card">
             <h2>SINGULARITY BREACHED</h2>
+
             <p>
                 CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>
                 Your coordinate metrics have crossed the inner Event Horizon boundaries.
                 Structural reference frame lost.
             </p>
+
             <button class="restart-btn" id="btn-restart-sequence">
                 RESTART PLUNGE SEQUENCE
             </button>
@@ -52,9 +72,12 @@
     </div>
 
     <div id="ui-layer">
+
         <header class="interactive">
+
             <div class="title-container">
                 <img src="favicon.jpg" alt="Lab Logo" class="logo-img">
+
                 <div class="title-block">
                     <h1>BLACK HOLE LABORATORY</h1>
                     <span>RELATIVISTIC VECTOR SPACE ENGINE</span>
@@ -65,16 +88,21 @@
                 SYS.LOC: EVENT_H_SIM // T-MINUS:
                 <span id="plunge-timer" class="timer-text">60.0s</span>
             </div>
+
         </header>
 
         <div class="control-deck glass-panel interactive">
-            <div class="section-title">1. Singularity Metrics</div>
+
+            <div class="section-title">
+                1. Singularity Metrics
+            </div>
 
             <div class="control-group">
                 <label>
                     Mass (Solar Masses)
                     <span class="val" id="v-mass">6.5M</span>
                 </label>
+
                 <input type="range" id="param-mass" min="1.0" max="10.0" step="0.1" value="6.5">
             </div>
 
@@ -83,6 +111,7 @@
                     Gravitational Lensing
                     <span class="val" id="v-lensing">1.8x</span>
                 </label>
+
                 <input type="range" id="param-lensing" min="0.0" max="3.0" step="0.05" value="1.8">
             </div>
 
@@ -95,6 +124,7 @@
                     Disk Intensity
                     <span class="val" id="v-disk-int">2.0</span>
                 </label>
+
                 <input type="range" id="param-disk-int" min="0.0" max="4.0" step="0.1" value="2.0">
             </div>
 
@@ -103,12 +133,15 @@
                     Plasma Turbulence
                     <span class="val" id="v-turbulence">0.50</span>
                 </label>
+
                 <input type="range" id="param-turbulence" min="0.0" max="1.0" step="0.05" value="0.50">
             </div>
+
         </div>
 
         <div class="anomaly-alert">
             WARNING: GRAVITATIONAL PLUNGE IN PROGRESS<br>
+
             STATUS:
             <span id="trajectory-status">
                 DESCENDING REFERENCE FRAME
@@ -116,13 +149,17 @@
         </div>
 
         <div class="physics-deck glass-panel interactive">
-            <div class="section-title">3. Particle Kinetics</div>
+
+            <div class="section-title">
+                3. Particle Kinetics
+            </div>
 
             <div class="control-group">
                 <label>
                     Suction Velocity
                     <span class="val" id="v-suction">2.0</span>
                 </label>
+
                 <input type="range" id="param-suction" min="0.5" max="5.0" step="0.1" value="2.0">
             </div>
 
@@ -131,6 +168,7 @@
                     Relativistic Stretch
                     <span class="val" id="v-stretch">3.0</span>
                 </label>
+
                 <input type="range" id="param-stretch" min="0.5" max="6.0" step="0.1" value="3.0">
             </div>
 
@@ -146,20 +184,32 @@
             <div class="info-footer">
                 Click and drag anywhere to look around the black hole
             </div>
+
         </div>
 
         <footer class="interactive">
-            <div style="padding-left:15px;">
-                SYSTEM STATUS:
-                <span style="color:#ff3333; animation: blink 1s infinite;">
-                    CRITICAL APPROACH
-                </span>
+
+            <div class="footer-left">
+
+                <div>
+                    SYSTEM STATUS:
+                    <span class="critical-text">
+                        CRITICAL APPROACH
+                    </span>
+                </div>
+
+                <button id="btn-about">
+                    ABOUT
+                </button>
+
             </div>
 
             <div style="padding-right:15px;">
                 RENDERING METHOD: NATIVE SHADER PASS
             </div>
+
         </footer>
+
     </div>
 
     <script type="importmap">
