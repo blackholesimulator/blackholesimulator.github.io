@@ -35,30 +35,6 @@ body, html {
     align-items: center;
 }
 
-.start-header {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    pointer-events: none;
-}
-
-.start-title h1 {
-    font-size: 1.1rem;
-    letter-spacing: 3px;
-    color: #fff;
-    text-shadow: 0 0 10px var(--glow-color);
-    margin: 0;
-}
-
-.start-title span {
-    font-size: 0.6rem;
-    color: var(--glow-color);
-    opacity: 0.8;
-}
-
 #btn-start {
     background: rgba(0, 243, 255, 0.1);
     border: 2px solid var(--glow-color);
@@ -100,7 +76,6 @@ body, html {
     max-width: 350px;
     line-height: 1.4;
     text-transform: uppercase;
-    text-align: center;
 }
 
 #webgl-container {
@@ -212,15 +187,8 @@ header {
     font-weight: bold;
 }
 
-.control-deck { 
-    grid-column: 1; 
-    grid-row: 2; 
-}
-
-.physics-deck { 
-    grid-column: 3; 
-    grid-row: 2; 
-}
+.control-deck { grid-column: 1; grid-row: 2; }
+.physics-deck { grid-column: 3; grid-row: 2; }
 
 footer {
     grid-column: 1 / -1;
@@ -307,14 +275,11 @@ button:hover {
     text-align: center;
     margin-top: 15px;
     color: #00ff66;
-    width: 100%;
 }
 
 .anomaly-alert {
-    grid-column: 2; 
-    grid-row: 2;
-    align-self: start; 
-    justify-self: center;
+    grid-column: 2; grid-row: 2;
+    align-self: start; justify-self: center;
     background: rgba(255, 30, 30, 0.15);
     border: 1px solid #ff1e1e;
     color: #ff9999;
