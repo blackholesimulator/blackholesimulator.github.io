@@ -15,21 +15,24 @@
     <div id="start-screen">
 
         <div class="start-brand">
-            <img src="favicon.jpg" alt="Black Hole Logo" class="start-logo">
+            <img src="favicon.jpg" alt="Logo" class="start-logo">
+
             <div class="start-brand-text">
                 <h1>BLACK HOLE SIMULATOR</h1>
-                <span>RELATIVISTIC IMMERSION SYSTEM</span>
+                <span>IMMERSIVE RELATIVISTIC EXPERIENCE</span>
             </div>
         </div>
 
         <button id="btn-start">
-            <span class="btn-title">START IMMERSIVE EXPERIENCE</span>
+            <span class="btn-title">
+                START IMMERSIVE EXPERIENCE
+            </span>
 
             <p class="btn-subtitle">
-                This is a 1-minute immersive experience of crossing the event horizon boundaries
+                This is a 1-minute immersive experience
+                of reaching the event horizon boundaries
             </p>
         </button>
-
     </div>
 
     <div id="about-screen">
@@ -45,28 +48,44 @@
 
     </div>
 
-    <audio id="bg-audio" src="blackhole.mp3" loop></audio>
+    <audio
+        id="bg-audio"
+        src="blackhole.mp3"
+        loop>
+    </audio>
 
     <div id="webgl-container"></div>
-    
+
     <div id="immersive-label">
         1-Minute Black Hole Immersive Experience
     </div>
 
     <div id="singularity-overlay">
+
         <div class="terminal-card">
+
             <h2>SINGULARITY BREACHED</h2>
 
             <p>
-                CRITICAL SYSTEM ERROR: CHRONOS DISRUPTED.<br>
-                Your coordinate metrics have crossed the inner Event Horizon boundaries.
+                CRITICAL SYSTEM ERROR:
+                CHRONOS DISRUPTED.<br>
+
+                Your coordinate metrics have crossed
+                the inner Event Horizon boundaries.
+
                 Structural reference frame lost.
             </p>
 
-            <button class="restart-btn" id="btn-restart-sequence">
+            <button
+                class="restart-btn"
+                id="btn-restart-sequence">
+
                 RESTART PLUNGE SEQUENCE
+
             </button>
+
         </div>
+
     </div>
 
     <div id="ui-layer">
@@ -74,17 +93,35 @@
         <header class="interactive">
 
             <div class="title-container">
-                <img src="favicon.jpg" alt="Lab Logo" class="logo-img">
+
+                <img
+                    src="favicon.jpg"
+                    alt="Lab Logo"
+                    class="logo-img">
 
                 <div class="title-block">
                     <h1>BLACK HOLE LABORATORY</h1>
-                    <span>RELATIVISTIC VECTOR SPACE ENGINE</span>
+
+                    <span>
+                        RELATIVISTIC VECTOR SPACE ENGINE
+                    </span>
                 </div>
+
             </div>
 
             <div class="timer-block">
-                SYS.LOC: EVENT_H_SIM // T-MINUS:
-                <span id="plunge-timer" class="timer-text">60.0s</span>
+
+                SYS.LOC: EVENT_H_SIM
+                // T-MINUS:
+
+                <span
+                    id="plunge-timer"
+                    class="timer-text">
+
+                    60.0s
+
+                </span>
+
             </div>
 
         </header>
@@ -96,54 +133,140 @@
             </div>
 
             <div class="control-group">
+
                 <label>
                     Mass (Solar Masses)
-                    <span class="val" id="v-mass">6.5M</span>
+
+                    <span
+                        class="val"
+                        id="v-mass">
+
+                        6.5M
+
+                    </span>
                 </label>
 
-                <input type="range" id="param-mass" min="1.0" max="10.0" step="0.1" value="6.5">
+                <input
+                    type="range"
+                    id="param-mass"
+                    min="1.0"
+                    max="10.0"
+                    step="0.1"
+                    value="6.5">
+
             </div>
 
             <div class="control-group">
+
                 <label>
                     Gravitational Lensing
-                    <span class="val" id="v-lensing">1.8x</span>
+
+                    <span
+                        class="val"
+                        id="v-lensing">
+
+                        1.8x
+
+                    </span>
                 </label>
 
-                <input type="range" id="param-lensing" min="0.0" max="3.0" step="0.05" value="1.8">
+                <input
+                    type="range"
+                    id="param-lensing"
+                    min="0.0"
+                    max="3.0"
+                    step="0.05"
+                    value="1.8">
+
             </div>
 
-            <div class="section-title" style="margin-top:10px;">
+            <div
+                class="section-title"
+                style="margin-top:10px;">
+
                 2. Accretion Geometry
+
             </div>
 
             <div class="control-group">
+
                 <label>
                     Disk Intensity
-                    <span class="val" id="v-disk-int">2.0</span>
+
+                    <span
+                        class="val"
+                        id="v-disk-int">
+
+                        2.0
+
+                    </span>
                 </label>
 
-                <input type="range" id="param-disk-int" min="0.0" max="4.0" step="0.1" value="2.0">
+                <input
+                    type="range"
+                    id="param-disk-int"
+                    min="0.0"
+                    max="4.0"
+                    step="0.1"
+                    value="2.0">
+
             </div>
 
             <div class="control-group">
+
                 <label>
                     Plasma Turbulence
-                    <span class="val" id="v-turbulence">0.50</span>
+
+                    <span
+                        class="val"
+                        id="v-turbulence">
+
+                        0.50
+
+                    </span>
                 </label>
 
-                <input type="range" id="param-turbulence" min="0.0" max="1.0" step="0.05" value="0.50">
+                <input
+                    type="range"
+                    id="param-turbulence"
+                    min="0.0"
+                    max="1.0"
+                    step="0.05"
+                    value="0.50">
+
+            </div>
+
+            <div class="physics-info">
+
+                <h3>How Does It Work</h3>
+
+                <p>
+                    This simulation recreates the gravity of a black hole.<br>
+                    Particles orbit the singularity using relativistic motion.<br>
+                    The accretion disk spins faster near the center.<br>
+                    Gravitational lensing bends surrounding light.<br>
+                    The camera slowly falls into the event horizon.<br>
+                    Particle stretching simulates tidal forces.<br>
+                    Everything is rendered in real time with shaders.
+                </p>
+
             </div>
 
         </div>
 
         <div class="anomaly-alert">
-            WARNING: GRAVITATIONAL PLUNGE IN PROGRESS<br>
+
+            WARNING:
+            GRAVITATIONAL PLUNGE IN PROGRESS
+
+            <br>
 
             STATUS:
+
             <span id="trajectory-status">
                 DESCENDING REFERENCE FRAME
             </span>
+
         </div>
 
         <div class="physics-deck glass-panel interactive">
@@ -153,34 +276,78 @@
             </div>
 
             <div class="control-group">
+
                 <label>
                     Suction Velocity
-                    <span class="val" id="v-suction">2.0</span>
+
+                    <span
+                        class="val"
+                        id="v-suction">
+
+                        2.0
+
+                    </span>
                 </label>
 
-                <input type="range" id="param-suction" min="0.5" max="5.0" step="0.1" value="2.0">
+                <input
+                    type="range"
+                    id="param-suction"
+                    min="0.5"
+                    max="5.0"
+                    step="0.1"
+                    value="2.0">
+
             </div>
 
             <div class="control-group">
+
                 <label>
                     Relativistic Stretch
-                    <span class="val" id="v-stretch">3.0</span>
+
+                    <span
+                        class="val"
+                        id="v-stretch">
+
+                        3.0
+
+                    </span>
                 </label>
 
-                <input type="range" id="param-stretch" min="0.5" max="6.0" step="0.1" value="3.0">
+                <input
+                    type="range"
+                    id="param-stretch"
+                    min="0.5"
+                    max="6.0"
+                    step="0.1"
+                    value="3.0">
+
             </div>
 
-            <div class="section-title" style="margin-top:10px;">
+            <div
+                class="section-title"
+                style="margin-top:10px;">
+
                 4. Quick Presets
+
             </div>
 
             <div class="btn-grid">
-                <button id="btn-quantum">Quantum Storm</button>
-                <button id="btn-schwarz">Reset Base</button>
+
+                <button id="btn-quantum">
+                    Quantum Storm
+                </button>
+
+                <button id="btn-schwarz">
+                    Reset Base
+                </button>
+
             </div>
 
             <div class="info-footer">
-                Click and drag anywhere to look around the black hole
+
+                Click and drag anywhere
+                to look around the Black Hole!
+
             </div>
 
         </div>
@@ -191,6 +358,7 @@
 
                 <div>
                     SYSTEM STATUS:
+
                     <span class="critical-text">
                         CRITICAL APPROACH
                     </span>
@@ -203,7 +371,10 @@
             </div>
 
             <div style="padding-right:15px;">
-                RENDERING METHOD: NATIVE SHADER PASS
+
+                RENDERING METHOD:
+                NATIVE SHADER PASS
+
             </div>
 
         </footer>
@@ -213,13 +384,19 @@
     <script type="importmap">
         {
             "imports": {
-                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+                "three":
+                "https://unpkg.com/three@0.160.0/build/three.module.js",
+
+                "three/addons/":
+                "https://unpkg.com/three@0.160.0/examples/jsm/"
             }
         }
     </script>
 
-    <script type="module" src="script.js"></script>
+    <script
+        type="module"
+        src="script.js">
+    </script>
 
 </body>
 </html>
