@@ -12,7 +12,8 @@
     padding: 0;
 }
 
-body, html {
+body,
+html {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -33,6 +34,38 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.start-brand {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.start-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 2px solid var(--glow-color);
+    object-fit: cover;
+    box-shadow: 0 0 18px var(--glow-color);
+}
+
+.start-brand-text h1 {
+    font-size: 1.4rem;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 0 0 12px var(--glow-color);
+}
+
+.start-brand-text span {
+    font-size: 0.7rem;
+    color: var(--glow-color);
+    letter-spacing: 2px;
+    opacity: 0.8;
 }
 
 #btn-start {
@@ -76,6 +109,7 @@ body, html {
     max-width: 350px;
     line-height: 1.4;
     text-transform: uppercase;
+    text-align: center;
 }
 
 #webgl-container {
@@ -146,7 +180,11 @@ header {
     align-items: center;
     border-bottom: 2px solid var(--glow-color);
     padding: 5px 15px;
-    background: linear-gradient(90deg, rgba(0,243,255,0.1) 0%, rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(
+        90deg,
+        rgba(0,243,255,0.1) 0%,
+        rgba(0,0,0,0.8) 100%
+    );
 }
 
 .title-container {
@@ -187,8 +225,15 @@ header {
     font-weight: bold;
 }
 
-.control-deck { grid-column: 1; grid-row: 2; }
-.physics-deck { grid-column: 3; grid-row: 2; }
+.control-deck {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.physics-deck {
+    grid-column: 3;
+    grid-row: 2;
+}
 
 footer {
     grid-column: 1 / -1;
@@ -278,8 +323,10 @@ button:hover {
 }
 
 .anomaly-alert {
-    grid-column: 2; grid-row: 2;
-    align-self: start; justify-self: center;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    justify-self: center;
     background: rgba(255, 30, 30, 0.15);
     border: 1px solid #ff1e1e;
     color: #ff9999;
