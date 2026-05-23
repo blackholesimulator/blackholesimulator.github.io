@@ -39,18 +39,43 @@ body, html {
     background: rgba(0, 243, 255, 0.1);
     border: 2px solid var(--glow-color);
     color: var(--glow-color);
-    font-size: 1.5rem;
-    padding: 20px 50px;
-    letter-spacing: 4px;
-    font-weight: bold;
-    text-shadow: 0 0 10px var(--glow-color);
+    padding: 20px 40px;
     box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
 }
 
 #btn-start:hover {
     background: var(--glow-color);
     color: #000;
     box-shadow: 0 0 40px var(--glow-color);
+}
+
+.btn-title {
+    font-size: 1.5rem;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+#btn-start:hover .btn-title {
+    text-shadow: none;
+}
+
+.btn-subtitle {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    font-weight: normal;
+    text-shadow: none;
+    max-width: 350px;
+    line-height: 1.4;
+    text-transform: uppercase;
 }
 
 #webgl-container {
